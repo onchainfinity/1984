@@ -2,7 +2,7 @@
 
 Site de présentation de l’album **1984**, centré pour le moment sur le single **Golden Country**. Création **by Onchainfinity**.
 
-Le site utilise les pochettes validées de l’album et du single, un lecteur audio du mix Studio et une annonce de sortie prochaine de l’album. Le [clip de Golden Country](https://youtu.be/w_qzkKN237k) est disponible dans un lecteur intégré 9:16 et via un lien YouTube.
+Le site utilise les pochettes validées de l’album et du single et annonce la sortie prochaine de l’album. Golden Country se lit dans un CD animé : le film apparaît dans sa surface circulaire et tourne pendant la lecture. Le [clip complet](https://youtu.be/w_qzkKN237k) reste disponible en 9:16 dans le lecteur YouTube.
 
 ## Développement
 
@@ -37,7 +37,17 @@ youtubeUrl: "https://youtu.be/w_qzkKN237k",
 
 Pour remplacer le clip, modifier cette URL et le lien de secours `#youtube-link` dans `dist/index.html` (accessible sans JavaScript). Les URL `youtube.com/watch?v=…`, `youtu.be/…` et `youtube.com/shorts/…` sont reconnues. Une URL vide ou invalide active l’état « bientôt » au chargement de l’application.
 
-La page affiche alors « Regarder le clip » et un lien externe. Le lecteur vertical 9:16 utilise `youtube-nocookie.com` et ne se charge qu’après un clic. L’audio du single est mis en pause à l’ouverture du clip. Le visiteur lance ensuite la lecture dans YouTube. Aucun suivi ou lecteur tiers n’est chargé à l’arrivée sur la page.
+La page affiche « Voir le clip en grand » et un lien externe. Le lecteur vertical 9:16 utilise `youtube-nocookie.com` et ne se charge qu’après un clic. Le CD est mis en pause à l’ouverture du clip ou du lien externe. Inversement, relancer le CD décharge le lecteur YouTube pour éviter deux bandes-son simultanées. Aucun lecteur tiers n’est chargé à l’arrivée sur la page.
+
+## CD vidéo
+
+Le bouton au centre du disque et celui du lecteur commandent le même élément HTML vidéo : image et bande-son partagent donc une seule horloge. Le fichier est chargé à la demande (`preload="none"`, `playsinline`).
+
+- `dist/assets/golden-country-disc.mp4` : film complet en 540×960, H.264, 24 i/s, 336,375 s (32 Mo). L’AAC original est copié sans réencodage.
+- `dist/disc.css` : cercle, reflets métalliques, moyeu et rotation de 48 secondes par tour. La rotation s’arrête en pause, pendant le chargement et à la fin, puis reprend au même angle.
+- `prefers-reduced-motion: reduce` supprime la rotation, en conservant la lecture vidéo.
+- Le cadrage circulaire concerne uniquement le CD ; « Voir le clip en grand » retrouve le cadre original vertical. La pochette entière reste accessible par son lien.
+- `videoDuration` définit la durée initiale du lecteur. `audioDuration` conserve celle du morceau seul, disponible en MP3 sans JavaScript.
 
 ## Publication
 
@@ -50,6 +60,7 @@ La publication doit être configurée sur **GitHub Actions** dans Settings → P
 - Album : « Le dernier refuge », pochette validée, format vertical conservé.
 - Single : « Le ruban abandonné », pochette choisie pour Golden Country.
 - Audio : dérivé MP3 192 kb/s du mix Studio final, 5 min 33 s, sans remastering.
+- CD vidéo : copie web du montage final validé, avec sa bande-son AAC originale et ses trois secondes de titre final.
 
 Les œuvres, images et enregistrements restent la propriété de leurs ayants droit. Leur présence dans un dépôt public n’accorde pas de licence de réutilisation.
 

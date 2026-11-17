@@ -1,0 +1,51 @@
+/* Picture disc: one video and its original soundtrack share the same clock. */
+.single { grid-template-areas: "art intro" "art controls"; row-gap: 0; }
+.single-art { grid-area: art; max-width: 440px; align-self: center; }
+.single-copy { grid-area: intro; align-self: end; }
+.single-controls { grid-area: controls; align-self: start; width: 100%; max-width: 475px; }
+.disc-stage { position: relative; width: 100%; aspect-ratio: 1; isolation: isolate; }
+.disc-shadow { position: absolute; inset: 8%; border-radius: 50%; box-shadow: 0 22px 45px 14px #050904b8; }
+.disc-rotor {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+  background: conic-gradient(from 20deg, #87958a, #e6e9de 12%, #81908a 19%, #b6c1aa 26%, #e2d7b0 30%, #778b87 39%, #ccd5ce 49%, #65726c 59%, #e2d9ca 71%, #7c888c 82%, #c8d3c6 91%, #87958a);
+  border: 1px solid #e5ecd07a;
+  box-shadow: inset 0 0 0 2px #f2f1db47, inset 0 0 0 5px #111b176b, 0 1px 4px #000b;
+  animation: disc-turn 48s linear infinite;
+  animation-play-state: paused;
+}
+.disc-stage[data-state="playing"] .disc-rotor { animation-play-state: running; }
+.disc-film { position: absolute; inset: 5.8%; border-radius: 50%; overflow: hidden; background: #152016; }
+.disc-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.disc-grooves { position: absolute; inset: 1%; border-radius: 50%; pointer-events: none; box-shadow: inset 0 0 0 1px #fff5, inset 0 0 0 4px #203b302e, inset 0 0 0 5px #f0efe830, inset 0 0 0 12px #141b130f; }
+.disc-lettering { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; fill: #203029; }
+.disc-lettering text { font-family: var(--sans); font-size: 8px; font-weight: 600; letter-spacing: 3px; }
+.disc-center-ring {
+  position: absolute; width: 24%; aspect-ratio: 1; border-radius: 50%; top: 38%; left: 38%; pointer-events: none;
+  background: conic-gradient(#c8d2c15c, #edf1e6ab, #5e736e7a, #ded8c47d, #afc3bb73, #c8d2c15c);
+  border: 1px solid #ecf2da99; box-shadow: inset 0 0 0 3px #ffffff1f, inset 0 0 0 6px #17231833, 0 0 0 1px #0b160c8c;
+}
+.disc-toggle {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: max(44px, 14%); aspect-ratio: 1; padding: 0;
+  border-radius: 50%; border: 1px solid #bdc9b18c; color: var(--paper); background: #152016;
+  box-shadow: 0 0 0 3px #1420176b, inset 0 1px 4px #03090299; z-index: 2;
+}
+.disc-toggle:hover { background: #293729; }
+.disc-toggle .play-icon { margin-left: 2px; }
+.disc-stage.is-active .play-icon { display: none; }
+.disc-stage.is-active .pause-icon { display: block; }
+.disc-caption { margin-top: 25px !important; }
+.disc-cover-link { display: inline-block; font-size: 10px; line-height: 1.5; color: var(--muted); margin-top: 13px; border-bottom: 1px solid #bac6aa45; padding-bottom: 3px; }
+.disc-cover-link:hover { border-color: var(--red); color: var(--paper); }
+.single-art noscript audio { width: 100%; margin-top: 20px; }
+@keyframes disc-turn { to { transform: rotate(360deg); } }
+@media (max-width: 700px) {
+  .single { grid-template-areas: "intro" "art" "controls"; row-gap: 34px; }
+  .single-art { grid-row: auto; width: 100%; max-width: 360px; }
+  .single-controls { max-width: none; }
+  .single-controls .player { margin-top: 0; }
+  .disc-caption { margin-top: 20px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .disc-rotor { animation: none !important; }
+}

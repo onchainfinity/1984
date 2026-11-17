@@ -4,5 +4,6 @@ export const siteConfig = Object.freeze({
   locales: ["fr", "en"],
   youtubeUrl: "https://youtu.be/w_qzkKN237k",
   audioDuration: 333.36,
+  videoDuration: 336.375,
   canonicalUrl: "https://onchainfinity.art/1984/",
 });
