@@ -17,9 +17,9 @@
   <link rel="alternate" hreflang="fr" href="https://onchainfinity.art/1984/?lang=fr">
   <link rel="alternate" hreflang="en" href="https://onchainfinity.art/1984/?lang=en">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=20261117-youtube-link">
   <link rel="stylesheet" href="./disc.css?v=20261117-disc">
-  <script type="module" src="./app.js?v=20261117-disc"></script>
+  <script type="module" src="./app.js?v=20261117-youtube-link"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
@@ -97,15 +97,13 @@
         </div>
 
         <div class="video-block" id="video-block">
-          <p class="eyebrow" data-i18n="video.label">Le clip officiel</p>
-          <div id="video-pending" hidden><p class="video-title" data-i18n="video.pendingTitle">Bientôt sur YouTube</p><p class="video-description" data-i18n="video.pendingDescription">Le film de Golden Country sera à découvrir ici dès sa publication.</p></div>
-          <div id="video-available"><button class="text-link video-launch" type="button" hidden><span data-i18n="video.play">Voir le clip en grand</span><span aria-hidden="true">↗</span></button><p class="video-description" data-i18n="video.consent">Le film dans son format vertical original, à regarder ici ou sur YouTube.</p><a id="youtube-link" class="external-link" href="https://www.youtube.com/watch?v=w_qzkKN237k" target="_blank" rel="noopener noreferrer" data-i18n="video.external">Ouvrir sur YouTube</a></div>
-          <div id="video-player" hidden></div>
+          <p id="video-pending" class="video-description" data-i18n="video.pendingDescription" hidden>Le lien vers le clip sera disponible dès sa publication.</p>
+          <div id="video-available"><a id="youtube-link" class="text-link" href="https://www.youtube.com/watch?v=w_qzkKN237k" target="_blank" rel="noopener noreferrer"><span data-i18n="video.external">Voir le clip sur YouTube</span><span aria-hidden="true">↗</span></a></div>
         </div>
       </div>
     </section>
 
-    <section class="closing" aria-label="Album à venir" data-i18n-aria="closing.label"><span class="closing-title" aria-hidden="true">1984</span><div><p class="eyebrow" data-i18n="closing.status">L’album arrive bientôt.</p><p data-i18n="closing.text">Pour l’instant, une clairière.</p></div><a class="back-to-top" href="#album" aria-label="Revenir en haut" data-i18n-aria="closing.back">↑</a></section>
+    <section class="closing" aria-label="Album à venir" data-i18n-aria="closing.label"><span class="closing-title" aria-hidden="true">1984</span><div><p class="eyebrow" data-i18n="closing.status">L’album arrive bientôt.</p><p data-i18n="closing.text">Un instant qui leur appartient.</p></div><a class="back-to-top" href="#album" aria-label="Revenir en haut" data-i18n-aria="closing.back">↑</a></section>
   </main>
   <footer><span>Velvet Index</span><span>by Onchainfinity</span><span data-i18n="footer.note">Une création musicale inspirée de 1984 de George Orwell.</span></footer>
 </body>

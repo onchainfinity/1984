@@ -12,7 +12,6 @@ const playerState = $("#player-state");
 const playerError = $("#player-error");
 const cache = new Map();
 let dictionary = {};
-let locale = siteConfig.defaultLocale;
 let languageRequest = 0;
 let state = "ready";
 const t = key => dictionary[key] || key;
@@ -48,7 +47,6 @@ async function setLanguage(language, persist = false) {
     const nextDictionary = await loadDictionary(language);
     if (request !== languageRequest) return;
     dictionary = nextDictionary;
-    locale = language;
     document.documentElement.lang = language;
     for (const [attribute, target] of [["data-i18n", null], ["data-i18n-alt", "alt"], ["data-i18n-aria", "aria-label"]]) {
       document.querySelectorAll(`[${attribute}]`).forEach(element => {
@@ -62,8 +60,6 @@ async function setLanguage(language, persist = false) {
     $("meta[property='og:description']").content = t("meta.description");
     $("meta[property='og:locale']").content = language === "fr" ? "fr_FR" : "en_GB";
     document.querySelectorAll("[data-lang]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.lang === language)));
-    const iframe = $("#video-player iframe");
-    if (iframe) iframe.title = t("video.title");
     updatePlayerLabels();
     if (persist) {
       try { localStorage.setItem("velvet-index-language", language); } catch { /* Language still works without storage. */ }
@@ -96,14 +92,6 @@ function showAudioError() {
   updatePlayerLabels();
 }
 
-function closeVideoPlayer() {
-  const video = $("#video-player");
-  if (!video.firstChild) return;
-  video.replaceChildren();
-  video.hidden = true;
-  $(".video-launch").hidden = false;
-}
-
 function setupPlayer() {
   audio.controls = false;
   $("#custom-player").hidden = false;
@@ -111,8 +99,6 @@ function setupPlayer() {
   const togglePlayback = async () => {
     playerError.hidden = true;
     if (!audio.paused) { audio.pause(); return; }
-    // Unloading the iframe also stops a video that may already be playing.
-    closeVideoPlayer();
     state = "loading";
     updatePlayerLabels();
     try { await audio.play(); } catch (error) { if (error.name !== "AbortError") showAudioError(); }
@@ -143,28 +129,9 @@ function setupVideo() {
   }
   $("#video-pending").hidden = true;
   $("#video-available").hidden = false;
-  $(".video-launch").hidden = false;
   $("#youtube-link").href = `https://www.youtube.com/watch?v=${id}`;
   $("#youtube-link").addEventListener("click", () => {
     audio.pause();
-    closeVideoPlayer();
-  });
-  $(".video-launch").addEventListener("click", () => {
-    audio.pause();
-    const container = $("#video-player");
-    if (!container.firstChild) {
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&hl=${locale}`;
-      iframe.title = t("video.title");
-      iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen";
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      iframe.allowFullscreen = true;
-      container.append(iframe);
-    }
-    container.hidden = false;
-    $(".video-launch").hidden = true;
-    container.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "nearest" });
-    container.querySelector("iframe").focus({ preventScroll: true });
   });
 }
 
