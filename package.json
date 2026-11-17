@@ -1,0 +1,11 @@
+{
+  "name": "velvet-index-1984",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "1984 by Velvet Index — Golden Country, bilingual release website",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test scripts/site.test.mjs"
+  }
+}
