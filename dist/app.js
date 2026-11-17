@@ -90,6 +90,14 @@ function showAudioError() {
   updatePlayerLabels();
 }
 
+function closeVideoPlayer() {
+  const video = $("#video-player");
+  if (!video.firstChild) return;
+  video.replaceChildren();
+  video.hidden = true;
+  $(".video-launch").hidden = false;
+}
+
 function setupPlayer() {
   audio.controls = false;
   $("#custom-player").hidden = false;
@@ -97,12 +105,7 @@ function setupPlayer() {
     playerError.hidden = true;
     if (!audio.paused) { audio.pause(); return; }
     // Unloading the iframe also stops a video that may already be playing.
-    const video = $("#video-player");
-    if (video.firstChild) {
-      video.replaceChildren();
-      video.hidden = true;
-      $(".video-launch").hidden = false;
-    }
+    closeVideoPlayer();
     state = "loading";
     updatePlayerLabels();
     try { await audio.play(); } catch (error) { if (error.name !== "AbortError") showAudioError(); }
@@ -122,10 +125,19 @@ function setupPlayer() {
 
 function setupVideo() {
   const id = youtubeId(siteConfig.youtubeUrl);
-  if (!id) return;
+  if (!id) {
+    $("#video-pending").hidden = false;
+    $("#video-available").hidden = true;
+    return;
+  }
   $("#video-pending").hidden = true;
   $("#video-available").hidden = false;
+  $(".video-launch").hidden = false;
   $("#youtube-link").href = `https://www.youtube.com/watch?v=${id}`;
+  $("#youtube-link").addEventListener("click", () => {
+    audio.pause();
+    closeVideoPlayer();
+  });
   $(".video-launch").addEventListener("click", () => {
     audio.pause();
     const container = $("#video-player");

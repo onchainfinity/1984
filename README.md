@@ -2,7 +2,7 @@
 
 Site de présentation de l’album **1984**, centré pour le moment sur le single **Golden Country**. Création **by Onchainfinity**.
 
-Le site utilise les pochettes validées de l’album et du single, un lecteur audio du mix Studio et une annonce de sortie prochaine. Le clip reste annoncé comme à venir jusqu’à l’ajout de son URL YouTube.
+Le site utilise les pochettes validées de l’album et du single, un lecteur audio du mix Studio et une annonce de sortie prochaine de l’album. Le [clip de Golden Country](https://youtu.be/w_qzkKN237k) est disponible dans un lecteur intégré 9:16 et via un lien YouTube.
 
 ## Développement
 
@@ -27,15 +27,15 @@ npm test
 
 Pour ajouter une langue, créer son dictionnaire, l’inscrire dans `site.config.js`, ajouter son bouton et sa balise `hreflang`, puis lancer les tests.
 
-## Ajouter le clip YouTube
+## Modifier le lien du clip YouTube
 
-Dans `dist/site.config.js`, remplacer la chaîne vide :
+Dans `dist/site.config.js`, le clip publié est configuré ainsi :
 
 ```js
-youtubeUrl: "",
+youtubeUrl: "https://youtu.be/w_qzkKN237k",
 ```
 
-par l’URL publique YouTube du clip. Les URL `youtube.com/watch?v=…`, `youtu.be/…` et `youtube.com/shorts/…` sont reconnues. Une URL invalide conserve l’état « bientôt ».
+Pour remplacer le clip, modifier cette URL et le lien de secours `#youtube-link` dans `dist/index.html` (accessible sans JavaScript). Les URL `youtube.com/watch?v=…`, `youtu.be/…` et `youtube.com/shorts/…` sont reconnues. Une URL vide ou invalide active l’état « bientôt » au chargement de l’application.
 
 La page affiche alors « Regarder le clip » et un lien externe. Le lecteur vertical 9:16 utilise `youtube-nocookie.com` et ne se charge qu’après un clic. L’audio du single est mis en pause à l’ouverture du clip. Le visiteur lance ensuite la lecture dans YouTube. Aucun suivi ou lecteur tiers n’est chargé à l’arrivée sur la page.
 
