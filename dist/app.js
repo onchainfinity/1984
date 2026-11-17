@@ -1,4 +1,4 @@
-import { siteConfig } from "./site.config.js";
+import { siteConfig } from "./site.config.js?v=20261117-video";
 import { selectLocale, formatTime, youtubeId } from "./lib.js";
 
 const $ = selector => document.querySelector(selector);
