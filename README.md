@@ -19,7 +19,7 @@ npm test
 ## Textes et langues
 
 - `dist/locales/{fr,en,ko,zh,ja,es,pt}.json` : textes, descriptions, libellés accessibles et états du lecteur en français, anglais, coréen, chinois simplifié, japonais, espagnol et portugais.
-- La langue est choisie dans cet ordre : paramètre `?lang=…`, choix mémorisé, langue du navigateur, français. Les variantes régionales sont ramenées à la langue disponible (par exemple `es-MX` → `es`, `pt-BR` → `pt`). La version chinoise est déclarée `zh-Hans`.
+- La langue est choisie dans cet ordre : paramètre explicite `?lang=…`, langues préférées du navigateur dans leur ordre, choix mémorisé si aucune langue du navigateur n’est disponible, puis français. L’adresse sans paramètre respecte donc en priorité le navigateur. Les variantes régionales sont ramenées à la langue disponible (par exemple `es-MX` → `es`, `pt-BR` → `pt`). La version chinoise est déclarée `zh-Hans`.
 - Le menu déroulant de l’en-tête présente les noms dans leur langue d’origine. Il mémorise le choix, met à jour le lien de la page et conserve la lecture en cours. Il fonctionne au clavier (Tab, flèches, Entrée, Échap) et affiche un code court sur mobile.
 - Les titres artistiques et le crédit « by Onchainfinity » ne sont pas traduits.
 - Les illustrations contiennent leur typographie d’origine, conservée dans les deux langues.

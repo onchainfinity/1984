@@ -30,16 +30,20 @@ test("Language dropdown, dictionaries and alternate links cover the same locales
   assert.equal(localeMetadata.zh.tag, "zh-Hans");
 });
 
-test("Deep links override saved language; browser regions and unsupported languages fall back", () => {
+test("Explicit links override browser languages, which take priority over a saved choice", () => {
   assert.equal(selectLocale({ search: "?lang=en", saved: "fr", languages: ["fr-CH"] }), "en");
-  assert.equal(selectLocale({ search: "?lang=xx", saved: "fr", languages: ["en-GB"] }), "fr");
+  assert.equal(selectLocale({ search: "?lang=xx", saved: "fr", languages: ["en-GB"] }), "en");
+  assert.equal(selectLocale({ saved: "en", languages: ["fr-CH"] }), "fr");
   assert.equal(selectLocale({ languages: ["de-CH", "en-US"] }), "en");
   assert.equal(selectLocale({ languages: ["ja"] }), "fr");
   for (const [requested, expected] of [["ko-KR", "ko"], ["zh-Hans", "zh"], ["ja-JP", "ja"], ["es-MX", "es"], ["pt-BR", "pt"]]) {
     assert.equal(selectLocale({ languages: [requested], supported: siteConfig.locales }), expected);
     assert.equal(selectLocale({ search: `?lang=${requested}`, saved: "fr", supported: siteConfig.locales }), expected);
   }
-  assert.equal(selectLocale({ saved: "pt", languages: ["ja-JP"], supported: siteConfig.locales }), "pt");
+  assert.equal(selectLocale({ saved: "pt", languages: ["ja-JP"], supported: siteConfig.locales }), "ja");
+  assert.equal(selectLocale({ saved: "fr", languages: ["de-CH", "es-MX", "en-US"], supported: siteConfig.locales }), "es");
+  assert.equal(selectLocale({ saved: "pt", languages: ["de-CH"], supported: siteConfig.locales }), "pt");
+  assert.equal(selectLocale({ languages: ["de-CH"], supported: siteConfig.locales }), "fr");
 });
 
 test("YouTube only accepts valid IDs from supported HTTPS hosts", () => {

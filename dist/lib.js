@@ -1,7 +1,7 @@
 // Pure helpers shared by the page and its checks.
 export function selectLocale({ search = "", saved = "", languages = [], supported = ["fr", "en"], fallback = "fr" } = {}) {
   const requested = new URLSearchParams(search).get("lang");
-  return [requested, saved, ...languages, fallback]
+  return [requested, ...languages, saved, fallback]
     .filter(value => typeof value === "string")
     .map(value => value.toLowerCase().split("-")[0])
     .find(value => supported.includes(value)) || fallback;

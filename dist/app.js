@@ -1,5 +1,5 @@
 import { siteConfig, localeMetadata } from "./site.config.js?v=20261118-languages";
-import { selectLocale, youtubeId } from "./lib.js?v=20261118-languages";
+import { selectLocale, youtubeId } from "./lib.js?v=20261118-browser-language";
 import { connectDiscLyrics } from "./lyrics.js?v=20261118-lyrics";
 
 const $ = selector => document.querySelector(selector);
