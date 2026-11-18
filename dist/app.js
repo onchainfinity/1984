@@ -83,7 +83,11 @@ function setupPlayer() {
     if (!audio.paused) { audio.pause(); return; }
     state = "loading";
     updatePlayerLabels();
-    try { await audio.play(); } catch (error) { if (error.name !== "AbortError") showAudioError(); }
+    try {
+      // Keep the media URL inactive until the first explicit play request.
+      if (!audio.hasAttribute("src")) audio.src = audio.dataset.src;
+      await audio.play();
+    } catch (error) { if (error.name !== "AbortError") showAudioError(); }
   };
   discButton.addEventListener("click", togglePlayback);
   audio.addEventListener("playing", () => { state = "playing"; updatePlayerLabels(); });
