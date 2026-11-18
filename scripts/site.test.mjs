@@ -2,19 +2,32 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import { selectLocale, youtubeId, formatTime } from "../dist/lib.js";
-import { siteConfig } from "../dist/site.config.js";
+import { siteConfig, localeMetadata } from "../dist/site.config.js";
 import { connectDiscLyrics } from "../dist/lyrics.js";
 
 const root = new URL("../dist/", import.meta.url);
 const read = async file => readFile(new URL(file, root), "utf8");
 
-test("Every visible/accessible translation and dynamic player state exists in both languages", async () => {
+test("Every visible/accessible translation and player state exists in all seven languages", async () => {
   const dictionaries = await Promise.all(siteConfig.locales.map(async locale => JSON.parse(await read(`locales/${locale}.json`))));
-  assert.deepEqual(Object.keys(dictionaries[0]).sort(), Object.keys(dictionaries[1]).sort());
+  assert.equal(dictionaries.length, 7);
+  for (const dictionary of dictionaries) assert.deepEqual(Object.keys(dictionary).sort(), Object.keys(dictionaries[0]).sort());
   const html = await read("index.html");
   const keys = [...html.matchAll(/data-i18n(?:-alt|-aria)?="([^"]+)"/g)].map(match => match[1]);
   keys.push("meta.title", "meta.description", "disc.play", "disc.pause", "disc.error");
   for (const dictionary of dictionaries) for (const key of keys) assert.ok(dictionary[key]?.trim(), key);
+});
+
+test("Language dropdown, dictionaries and alternate links cover the same locales", async () => {
+  const html = await read("index.html");
+  assert.deepEqual([...html.matchAll(/data-lang="([^"]+)"/g)].map(match => match[1]), siteConfig.locales);
+  assert.deepEqual(Object.keys(localeMetadata), siteConfig.locales);
+  for (const locale of siteConfig.locales) {
+    const meta = localeMetadata[locale];
+    assert.ok(meta.name && meta.og);
+    assert.ok(html.includes(`hreflang="${meta.tag}" href="${siteConfig.canonicalUrl}?lang=${locale}"`));
+  }
+  assert.equal(localeMetadata.zh.tag, "zh-Hans");
 });
 
 test("Deep links override saved language; browser regions and unsupported languages fall back", () => {
@@ -22,6 +35,11 @@ test("Deep links override saved language; browser regions and unsupported langua
   assert.equal(selectLocale({ search: "?lang=xx", saved: "fr", languages: ["en-GB"] }), "fr");
   assert.equal(selectLocale({ languages: ["de-CH", "en-US"] }), "en");
   assert.equal(selectLocale({ languages: ["ja"] }), "fr");
+  for (const [requested, expected] of [["ko-KR", "ko"], ["zh-Hans", "zh"], ["ja-JP", "ja"], ["es-MX", "es"], ["pt-BR", "pt"]]) {
+    assert.equal(selectLocale({ languages: [requested], supported: siteConfig.locales }), expected);
+    assert.equal(selectLocale({ search: `?lang=${requested}`, saved: "fr", supported: siteConfig.locales }), expected);
+  }
+  assert.equal(selectLocale({ saved: "pt", languages: ["ja-JP"], supported: siteConfig.locales }), "pt");
 });
 
 test("YouTube only accepts valid IDs from supported HTTPS hosts", () => {

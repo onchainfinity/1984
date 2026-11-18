@@ -16,11 +16,17 @@
   <link rel="canonical" href="https://onchainfinity.art/1984/">
   <link rel="alternate" hreflang="fr" href="https://onchainfinity.art/1984/?lang=fr">
   <link rel="alternate" hreflang="en" href="https://onchainfinity.art/1984/?lang=en">
+  <link rel="alternate" hreflang="ko" href="https://onchainfinity.art/1984/?lang=ko">
+  <link rel="alternate" hreflang="zh-Hans" href="https://onchainfinity.art/1984/?lang=zh">
+  <link rel="alternate" hreflang="ja" href="https://onchainfinity.art/1984/?lang=ja">
+  <link rel="alternate" hreflang="es" href="https://onchainfinity.art/1984/?lang=es">
+  <link rel="alternate" hreflang="pt" href="https://onchainfinity.art/1984/?lang=pt">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css?v=20261118-licenses">
   <link rel="stylesheet" href="./disc.css?v=20261118-lyrics">
   <link rel="stylesheet" href="./band.css?v=20261118-opening">
-  <script type="module" src="./app.js?v=20261118-lyrics"></script>
+  <link rel="stylesheet" href="./language.css?v=20261118-languages">
+  <script type="module" src="./app.js?v=20261118-languages"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
@@ -29,11 +35,22 @@
     <nav aria-label="Navigation principale" data-i18n-aria="nav.label">
       <a href="#single" data-i18n="nav.single">Le single</a>
       <a href="#velvet-index" data-i18n="nav.band">Le groupe</a>
-      <div class="language-switch" role="group" aria-label="Choisir la langue" data-i18n-aria="nav.language" hidden>
-        <button type="button" data-lang="fr" aria-pressed="true" lang="fr">FR</button>
-        <span aria-hidden="true">/</span>
-        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
-      </div>
+      <details class="language-menu" id="language-menu" hidden>
+        <summary id="language-trigger" aria-label="Choisir la langue · Français" aria-controls="language-options">
+          <svg class="language-globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+          <span id="language-current" lang="fr">Français</span><span id="language-code" aria-hidden="true">FR</span>
+          <svg class="language-chevron" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg>
+        </summary>
+        <div class="language-options" id="language-options" role="group" aria-label="Choisir la langue" data-i18n-aria="nav.language">
+          <button type="button" class="language-option" data-lang="fr" aria-pressed="true" lang="fr"><span>Français</span><span class="language-option-code" aria-hidden="true">FR</span></button>
+          <button type="button" class="language-option" data-lang="en" aria-pressed="false" lang="en"><span>English</span><span class="language-option-code" aria-hidden="true">EN</span></button>
+          <button type="button" class="language-option" data-lang="ko" aria-pressed="false" lang="ko"><span>한국어</span><span class="language-option-code" aria-hidden="true">KO</span></button>
+          <button type="button" class="language-option" data-lang="zh" aria-pressed="false" lang="zh-Hans"><span>中文（简体）</span><span class="language-option-code" aria-hidden="true">ZH</span></button>
+          <button type="button" class="language-option" data-lang="ja" aria-pressed="false" lang="ja"><span>日本語</span><span class="language-option-code" aria-hidden="true">JA</span></button>
+          <button type="button" class="language-option" data-lang="es" aria-pressed="false" lang="es"><span>Español</span><span class="language-option-code" aria-hidden="true">ES</span></button>
+          <button type="button" class="language-option" data-lang="pt" aria-pressed="false" lang="pt"><span>Português</span><span class="language-option-code" aria-hidden="true">PT</span></button>
+        </div>
+      </details>
     </nav>
   </header>
 

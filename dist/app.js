@@ -1,5 +1,5 @@
-import { siteConfig } from "./site.config.js?v=20261117-disc";
-import { selectLocale, youtubeId } from "./lib.js";
+import { siteConfig, localeMetadata } from "./site.config.js?v=20261118-languages";
+import { selectLocale, youtubeId } from "./lib.js?v=20261118-languages";
 import { connectDiscLyrics } from "./lyrics.js?v=20261118-lyrics";
 
 const $ = selector => document.querySelector(selector);
@@ -7,6 +7,8 @@ const audio = $("#audio");
 const discStage = $("#disc-stage");
 const discButton = $("#disc-toggle");
 const discError = $("#disc-error");
+const languageMenu = $("#language-menu");
+const languageTrigger = $("#language-trigger");
 const cache = new Map();
 let dictionary = {};
 let languageRequest = 0;
@@ -42,7 +44,8 @@ async function setLanguage(language, persist = false) {
     const nextDictionary = await loadDictionary(language);
     if (request !== languageRequest) return;
     dictionary = nextDictionary;
-    document.documentElement.lang = language;
+    const locale = localeMetadata[language];
+    document.documentElement.lang = locale.tag;
     for (const [attribute, target] of [["data-i18n", null], ["data-i18n-alt", "alt"], ["data-i18n-aria", "aria-label"]]) {
       document.querySelectorAll(`[${attribute}]`).forEach(element => {
         const text = t(element.getAttribute(attribute));
@@ -53,8 +56,12 @@ async function setLanguage(language, persist = false) {
     $("meta[name=description]").content = t("meta.description");
     $("meta[property='og:title']").content = t("meta.title");
     $("meta[property='og:description']").content = t("meta.description");
-    $("meta[property='og:locale']").content = language === "fr" ? "fr_FR" : "en_GB";
+    $("meta[property='og:locale']").content = locale.og;
     document.querySelectorAll("[data-lang]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.lang === language)));
+    $("#language-current").textContent = locale.name;
+    $("#language-current").lang = locale.tag;
+    $("#language-code").textContent = language.toUpperCase();
+    languageTrigger.setAttribute("aria-label", `${t("nav.language")} · ${locale.name}`);
     updatePlayerLabels();
     if (persist) {
       try { localStorage.setItem("velvet-index-language", language); } catch { /* Language still works without storage. */ }
@@ -67,6 +74,38 @@ async function setLanguage(language, persist = false) {
     console.warn("Language could not be loaded.", error);
     return false;
   }
+}
+
+function setupLanguageMenu() {
+  languageMenu.hidden = false;
+  const options = [...languageMenu.querySelectorAll("[data-lang]")];
+  options.forEach(button => button.addEventListener("click", async () => {
+    if (await setLanguage(button.dataset.lang, true)) {
+      languageMenu.open = false;
+      languageTrigger.focus();
+    }
+  }));
+  document.addEventListener("pointerdown", event => {
+    if (!languageMenu.contains(event.target)) languageMenu.open = false;
+  });
+  languageMenu.addEventListener("focusout", event => {
+    if (event.relatedTarget && !languageMenu.contains(event.relatedTarget)) languageMenu.open = false;
+  });
+  languageMenu.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      languageMenu.open = false;
+      languageTrigger.focus();
+      event.preventDefault();
+    } else if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+      languageMenu.open = true;
+      const index = options.indexOf(document.activeElement);
+      const next = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1
+        : index < 0 ? (event.key === "ArrowUp" ? options.length - 1 : 0)
+        : (index + (event.key === "ArrowDown" ? 1 : -1) + options.length) % options.length;
+      options[next].focus();
+    }
+  });
 }
 
 function showAudioError() {
@@ -126,8 +165,7 @@ function setupVideo() {
 const preferredLanguage = selectLocale({ search: location.search, saved: readSavedLanguage(), languages: navigator.languages, supported: siteConfig.locales, fallback: siteConfig.defaultLocale });
 const ready = await setLanguage(preferredLanguage) || await setLanguage(siteConfig.defaultLocale);
 if (ready) {
-  $(".language-switch").hidden = false;
-  document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => setLanguage(button.dataset.lang, true)));
+  setupLanguageMenu();
   setupPlayer();
   setupVideo();
 }
