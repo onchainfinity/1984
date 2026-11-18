@@ -62,7 +62,13 @@ La publication doit être configurée sur **GitHub Actions** dans Settings → P
 - Audio : dérivé MP3 192 kb/s du mix Studio final, 5 min 33 s, sans remastering.
 - CD vidéo : copie web du montage final validé, avec sa bande-son AAC originale et ses trois secondes de titre final.
 
-Les œuvres, images et enregistrements restent la propriété de leurs ayants droit. Leur présence dans un dépôt public n’accorde pas de licence de réutilisation.
+## Licences
+
+Le code du site, sa configuration, ses scripts, ses tests et sa documentation technique sont sous [licence MIT](LICENSE).
+
+Les contenus artistiques de `dist/assets/` (pochettes, musique, clip et favicon), ainsi que les textes éditoriaux originaux de `dist/locales/*.json` et leurs copies HTML, sont sous **[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)**, dans la mesure des droits détenus ou contrôlés par Onchainfinity. Le partage non commercial avec attribution est autorisé ; la licence n’autorise pas la diffusion d’adaptations. Le [périmètre complet, les exclusions et le crédit recommandé](LICENSE-CONTENT.md) sont précisés en français et en anglais.
+
+Cette concession ne couvre pas le roman de George Orwell, les contenus et droits de tiers, ni les droits de marque. Elle ne crée aucun droit sur les productions IA non protégeables et ne limite pas les usages permis par la loi.
 
 ## Vérifications
 
