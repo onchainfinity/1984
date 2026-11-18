@@ -12,7 +12,7 @@ test("Every visible/accessible translation and dynamic player state exists in bo
   assert.deepEqual(Object.keys(dictionaries[0]).sort(), Object.keys(dictionaries[1]).sort());
   const html = await read("index.html");
   const keys = [...html.matchAll(/data-i18n(?:-alt|-aria)?="([^"]+)"/g)].map(match => match[1]);
-  keys.push("meta.title", "meta.description", "audio.play", "audio.pause", "audio.loading", "audio.ready", "audio.paused", "audio.playing", "audio.error");
+  keys.push("meta.title", "meta.description", "disc.play", "disc.pause", "disc.error");
   for (const dictionary of dictionaries) for (const key of keys) assert.ok(dictionary[key]?.trim(), key);
 });
 

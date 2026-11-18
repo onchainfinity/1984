@@ -23,15 +23,6 @@
   "disc.pause": "Mettre le CD en pause",
   "disc.caption": "CD vidéo · Golden Country",
   "disc.cover": "Voir la pochette ↗",
-  "audio.label": "Écouter Golden Country",
-  "audio.play": "Écouter le single",
-  "audio.pause": "Mettre en pause",
-  "audio.seek": "Position de lecture",
-  "audio.ready": "Écouter le single",
-  "audio.playing": "En écoute",
-  "audio.paused": "En pause",
-  "audio.loading": "Chargement…",
-  "audio.error": "La lecture n’a pas pu démarrer. Réessayez dans un instant.",
   "video.pendingDescription": "Le lien vers le clip sera disponible dès sa publication.",
   "video.external": "Voir le clip sur YouTube",
   "closing.label": "Album à venir",
@@ -39,5 +30,6 @@
   "closing.text": "Un instant qui leur appartient.",
   "closing.back": "Revenir en haut",
   "footer.note": "Une création musicale inspirée de 1984 de George Orwell.",
-  "creator.tagline": "Explorer nos traces dans l’IA. Révéler l’humain."
+  "creator.tagline": "Explorer nos traces dans l’IA. Révéler l’humain.",
+  "disc.error": "La lecture n’a pas pu démarrer. Réessayez dans un instant."
 }

@@ -1,15 +1,11 @@
 import { siteConfig } from "./site.config.js?v=20261117-disc";
-import { selectLocale, formatTime, youtubeId } from "./lib.js";
+import { selectLocale, youtubeId } from "./lib.js";
 
 const $ = selector => document.querySelector(selector);
 const audio = $("#audio");
-const player = $(".player");
-const playButton = $("#play-button");
 const discStage = $("#disc-stage");
 const discButton = $("#disc-toggle");
-const seek = $("#seek");
-const playerState = $("#player-state");
-const playerError = $("#player-error");
+const discError = $("#disc-error");
 const cache = new Map();
 let dictionary = {};
 let languageRequest = 0;
@@ -31,13 +27,11 @@ async function loadDictionary(language) {
 
 function updatePlayerLabels() {
   const playing = !audio.paused && !audio.ended;
-  player.classList.toggle("is-playing", playing);
   discStage.dataset.state = state;
   discStage.classList.toggle("is-active", playing);
-  playButton.setAttribute("aria-label", t(playing ? "audio.pause" : "audio.play"));
   discButton.setAttribute("aria-label", t(playing ? "disc.pause" : "disc.play"));
-  playerState.textContent = t(`audio.${state}`);
-  if (!playerError.hidden) playerError.textContent = t("audio.error");
+  discButton.setAttribute("aria-busy", String(state === "loading"));
+  if (!discError.hidden) discError.textContent = t("disc.error");
 }
 
 async function setLanguage(language, persist = false) {
@@ -74,50 +68,31 @@ async function setLanguage(language, persist = false) {
   }
 }
 
-function updateTime() {
-  const duration = Number.isFinite(audio.duration) ? audio.duration : siteConfig.videoDuration;
-  const current = Math.min(audio.currentTime || 0, duration);
-  seek.max = duration;
-  seek.value = current;
-  seek.style.setProperty("--progress", `${duration ? (current / duration) * 100 : 0}%`);
-  seek.setAttribute("aria-valuetext", `${formatTime(current)} / ${formatTime(duration)}`);
-  $("#current-time").textContent = formatTime(current);
-  $("#duration").textContent = formatTime(duration);
-}
-
 function showAudioError() {
   audio.pause();
   state = "paused";
-  playerError.hidden = false;
+  discError.hidden = false;
   updatePlayerLabels();
 }
 
 function setupPlayer() {
   audio.controls = false;
-  $("#custom-player").hidden = false;
   discButton.hidden = false;
   const togglePlayback = async () => {
-    playerError.hidden = true;
+    discError.hidden = true;
     if (!audio.paused) { audio.pause(); return; }
     state = "loading";
     updatePlayerLabels();
     try { await audio.play(); } catch (error) { if (error.name !== "AbortError") showAudioError(); }
   };
-  playButton.addEventListener("click", togglePlayback);
   discButton.addEventListener("click", togglePlayback);
   audio.addEventListener("playing", () => { state = "playing"; updatePlayerLabels(); });
   audio.addEventListener("pause", () => { state = "paused"; updatePlayerLabels(); });
   audio.addEventListener("waiting", () => { state = audio.paused ? "paused" : "loading"; updatePlayerLabels(); });
   audio.addEventListener("seeking", () => { if (!audio.paused) { state = "loading"; updatePlayerLabels(); } });
   audio.addEventListener("seeked", () => { state = audio.paused ? "paused" : audio.readyState >= 3 ? "playing" : "loading"; updatePlayerLabels(); });
-  audio.addEventListener("ended", () => { state = "ready"; updatePlayerLabels(); updateTime(); });
+  audio.addEventListener("ended", () => { state = "ready"; updatePlayerLabels(); });
   audio.addEventListener("error", showAudioError);
-  audio.addEventListener("timeupdate", updateTime);
-  audio.addEventListener("loadedmetadata", () => { seek.disabled = false; updateTime(); });
-  seek.addEventListener("input", () => {
-    audio.currentTime = Number(seek.value);
-    updateTime();
-  });
 }
 
 function setupVideo() {

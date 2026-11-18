@@ -17,9 +17,9 @@
   <link rel="alternate" hreflang="fr" href="https://onchainfinity.art/1984/?lang=fr">
   <link rel="alternate" hreflang="en" href="https://onchainfinity.art/1984/?lang=en">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=20261118-signature">
-  <link rel="stylesheet" href="./disc.css?v=20261117-disc">
-  <script type="module" src="./app.js?v=20261117-youtube-link"></script>
+  <link rel="stylesheet" href="./style.css?v=20261118-disc-only">
+  <link rel="stylesheet" href="./disc.css?v=20261118-disc-only">
+  <script type="module" src="./app.js?v=20261118-disc-only"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
@@ -72,6 +72,7 @@
           <button class="disc-toggle" id="disc-toggle" type="button" aria-label="Lire le CD vidéo" data-i18n-aria="disc.play" hidden><svg class="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 14 8-14 8z"/></svg><svg class="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button>
         </div>
         <figcaption class="disc-caption"><span data-i18n="disc.caption">CD vidéo · Golden Country</span><span>05:36</span></figcaption>
+        <p class="disc-error" id="disc-error" role="status" hidden></p>
         <a class="disc-cover-link" href="./assets/golden-country-cover-960.webp" target="_blank" rel="noopener" data-i18n="disc.cover">Voir la pochette ↗</a>
         <noscript><audio controls preload="none" src="./assets/golden-country.mp3" aria-label="Golden Country — Velvet Index"></audio></noscript>
       </figure>
@@ -82,20 +83,6 @@
         <p class="body-copy" data-i18n="single.description">Winston suit Julia dans une clairière qui ressemble au pays de ses rêves. Sous les noisetiers, la peur recule devant le désir, puis la tendresse. Le clip accompagne cet apaisement : les images de la ville surgissent encore, avant de laisser place aux regards, aux gestes et au souffle du vent.</p>
       </div>
       <div class="single-controls">
-        <div class="player" aria-label="Écouter Golden Country" data-i18n-aria="audio.label">
-          <div id="custom-player" hidden>
-            <div class="player-heading">
-              <button class="play-button" id="play-button" type="button" aria-label="Écouter le single" data-i18n-aria="audio.play"><svg class="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 14 8-14 8z"/></svg><svg class="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button>
-              <div class="track-info"><span class="track-title">Golden Country</span><span class="track-artist">Velvet Index</span></div>
-              <span class="playing-indicator" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            </div>
-            <label class="sr-only" for="seek" data-i18n="audio.seek">Position de lecture</label>
-            <input id="seek" class="seek" type="range" min="0" max="336.375" value="0" step="1" disabled aria-valuetext="0:00 / 5:36">
-            <div class="player-bottom"><span><span id="current-time">0:00</span><span class="time-divider"> / </span><span id="duration">5:36</span></span><span id="player-state" data-i18n="audio.ready">Écouter le single</span></div>
-          </div>
-          <p class="player-error" id="player-error" role="status" hidden></p>
-        </div>
-
         <div class="video-block" id="video-block">
           <p id="video-pending" class="video-description" data-i18n="video.pendingDescription" hidden>Le lien vers le clip sera disponible dès sa publication.</p>
           <div id="video-available"><a id="youtube-link" class="text-link" href="https://www.youtube.com/watch?v=w_qzkKN237k" target="_blank" rel="noopener noreferrer"><span data-i18n="video.external">Voir le clip sur YouTube</span><span aria-hidden="true">↗</span></a></div>

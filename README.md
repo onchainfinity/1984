@@ -41,13 +41,13 @@ Sous le lecteur CD, la page affiche uniquement « Voir le clip sur YouTube ». L
 
 ## CD vidéo
 
-Le bouton au centre du disque et celui du lecteur commandent le même élément HTML vidéo : image et bande-son partagent donc une seule horloge. Le fichier est chargé à la demande (`preload="none"`, `playsinline`).
+Le bouton au centre du disque est l’unique commande de lecture et de pause. Il pilote un élément HTML vidéo : image et bande-son partagent donc une seule horloge. Le fichier est chargé à la demande (`preload="none"`, `playsinline`).
 
 - `dist/assets/golden-country-disc.mp4` : film complet en 540×960, H.264, 24 i/s, 336,375 s (32 Mo). L’AAC original est copié sans réencodage.
 - `dist/disc.css` : cercle, reflets métalliques, moyeu et rotation de 48 secondes par tour. La rotation s’arrête en pause, pendant le chargement et à la fin, puis reprend au même angle.
 - `prefers-reduced-motion: reduce` supprime la rotation, en conservant la lecture vidéo.
 - Le cadrage circulaire concerne uniquement le CD ; le lien YouTube retrouve le cadre original vertical. La pochette entière reste accessible par son lien.
-- `videoDuration` définit la durée initiale du lecteur. `audioDuration` conserve celle du morceau seul, disponible en MP3 sans JavaScript.
+- `videoDuration` indique la durée du film. `audioDuration` conserve celle du morceau seul, disponible en MP3 sans JavaScript.
 
 ## Publication
 

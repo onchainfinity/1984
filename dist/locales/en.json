@@ -23,15 +23,6 @@
   "disc.pause": "Pause the CD",
   "disc.caption": "Video CD · Golden Country",
   "disc.cover": "View the cover ↗",
-  "audio.label": "Listen to Golden Country",
-  "audio.play": "Listen to the single",
-  "audio.pause": "Pause",
-  "audio.seek": "Playback position",
-  "audio.ready": "Listen to the single",
-  "audio.playing": "Now playing",
-  "audio.paused": "Paused",
-  "audio.loading": "Loading…",
-  "audio.error": "Playback could not start. Please try again in a moment.",
   "video.pendingDescription": "The link to the music video will be available when it is released.",
   "video.external": "Watch on YouTube",
   "closing.label": "Forthcoming album",
@@ -39,5 +30,6 @@
   "closing.text": "A moment of their own.",
   "closing.back": "Back to top",
   "footer.note": "A musical work inspired by George Orwell’s 1984.",
-  "creator.tagline": "Exploring our traces in AI. Revealing humanity."
+  "creator.tagline": "Exploring our traces in AI. Revealing humanity.",
+  "disc.error": "Playback could not start. Please try again in a moment."
 }

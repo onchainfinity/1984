@@ -32,9 +32,11 @@
 }
 .disc-toggle:hover { background: #293729; }
 .disc-toggle .play-icon { margin-left: 2px; }
+.disc-toggle .pause-icon { display: none; }
 .disc-stage.is-active .play-icon { display: none; }
 .disc-stage.is-active .pause-icon { display: block; }
 .disc-caption { margin-top: 25px !important; }
+.disc-error { font-size: 12px; line-height: 1.5; color: #f3bbb1; margin-top: 14px; }
 .disc-cover-link { display: inline-block; font-size: 10px; line-height: 1.5; color: var(--muted); margin-top: 13px; border-bottom: 1px solid #bac6aa45; padding-bottom: 3px; }
 .disc-cover-link:hover { border-color: var(--red); color: var(--paper); }
 .single-art noscript audio { width: 100%; margin-top: 20px; }
@@ -43,7 +45,7 @@
   .single { grid-template-areas: "intro" "art" "controls"; row-gap: 34px; }
   .single-art { grid-row: auto; width: 100%; max-width: 360px; }
   .single-controls { max-width: none; }
-  .single-controls .player { margin-top: 0; }
+  .single-controls .video-block { margin-top: 0; }
   .disc-caption { margin-top: 20px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
