@@ -18,9 +18,9 @@
   <link rel="alternate" hreflang="en" href="https://onchainfinity.art/1984/?lang=en">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css?v=20261118-licenses">
-  <link rel="stylesheet" href="./disc.css?v=20261118-disc-only">
+  <link rel="stylesheet" href="./disc.css?v=20261118-lyrics">
   <link rel="stylesheet" href="./band.css?v=20261118-opening">
-  <script type="module" src="./app.js?v=20261118-lazy-video"></script>
+  <script type="module" src="./app.js?v=20261118-lyrics"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
@@ -67,11 +67,24 @@ Révéler l’humain.</p>
           <div class="disc-shadow" aria-hidden="true"></div>
           <div class="disc-rotor">
             <div class="disc-film">
-              <video id="audio" class="disc-video" playsinline preload="none" data-src="./assets/golden-country-disc.mp4" poster="./assets/golden-country-cover-480.webp" aria-label="Golden Country, le film dans le disque" data-i18n-aria="disc.video"></video>
+              <video id="audio" class="disc-video" playsinline preload="none" data-src="./assets/golden-country-disc.mp4" poster="./assets/golden-country-cover-480.webp" aria-label="Golden Country, le film dans le disque" data-i18n-aria="disc.video"><track id="lyrics-track" kind="subtitles" srclang="en" label="English" data-src="./assets/golden-country-en.vtt"></video>
             </div>
             <div class="disc-grooves" aria-hidden="true"></div>
             <svg class="disc-lettering" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="disc-type-path" d="M 200,200 m -186,0 a 186,186 0 1,1 372,0 a 186,186 0 1,1 -372,0"/></defs><text><textPath href="#disc-type-path" startOffset="5%">VELVET INDEX · GOLDEN COUNTRY</textPath><textPath href="#disc-type-path" startOffset="55%">1984 · BY ONCHAINFINITY</textPath></text></svg>
             <span class="disc-center-ring" aria-hidden="true"></span>
+          </div>
+          <div class="disc-lyrics" id="disc-lyrics" role="group" aria-label="Paroles synchronisées en anglais" data-i18n-aria="disc.lyrics" hidden>
+            <svg viewBox="0 0 400 400" aria-hidden="true">
+              <defs>
+                <linearGradient id="lyric-silver" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#a6b3aa"/><stop offset=".3" stop-color="#dee3d8"/><stop offset=".65" stop-color="#d0d8cc"/><stop offset="1" stop-color="#a3b1a7"/></linearGradient>
+                <linearGradient id="lyric-edge-fade"><stop stop-color="black"/><stop offset=".12" stop-color="white"/><stop offset=".88" stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+                <mask id="lyric-rim-mask"><rect width="400" height="400" fill="url(#lyric-edge-fade)"/></mask>
+                <path id="lyric-arc" d="M 34.59 295.5 A 191 191 0 0 0 365.41 295.5"/>
+              </defs>
+              <path class="lyric-silver" mask="url(#lyric-rim-mask)" d="M 24.75 263.79 A 186.5 186.5 0 0 0 375.25 263.79"/>
+              <text class="lyric-text" lang="en" text-anchor="middle"><textPath id="disc-lyric-text" href="#lyric-arc" startOffset="50%"></textPath></text>
+            </svg>
+            <span class="sr-only" id="disc-lyric-accessible" lang="en"></span>
           </div>
           <button class="disc-toggle" id="disc-toggle" type="button" aria-label="Lire le CD vidéo" data-i18n-aria="disc.play" hidden><svg class="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m7 4 14 8-14 8z"/></svg><svg class="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg></button>
         </div>

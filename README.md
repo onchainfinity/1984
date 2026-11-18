@@ -46,6 +46,7 @@ Le bouton au centre du disque est l’unique commande de lecture et de pause. Il
 - `dist/assets/golden-country-disc.mp4` : film complet en 540×960, H.264, 24 i/s, 336,375 s (32 Mo). L’AAC original est copié sans réencodage.
 - `dist/disc.css` : cercle, reflets métalliques, moyeu et rotation de 48 secondes par tour. La rotation s’arrête en pause, pendant le chargement et à la fin, puis reprend au même angle.
 - `prefers-reduced-motion: reduce` supprime la rotation, en conservant la lecture vidéo.
+- Les 28 phrases anglaises apparaissent sur un arc fixe du bord argenté inférieur. `dist/assets/golden-country-en.vtt` reprend exactement les paroles et minutages publiés sur YouTube. La piste WebVTT est chargée au premier clic, en mode `hidden` : les événements natifs suivent l’horloge vidéo et alimentent l’inscription SVG, sans sous-titres superposés au film. Les paroles restent fixes pendant la rotation et les pauses, et s’effacent entre les phrases. La langue de l’interface ne traduit pas les paroles.
 - Le cadrage circulaire concerne uniquement le CD ; le lien YouTube retrouve le cadre original vertical. La pochette entière reste accessible par son lien.
 - `videoDuration` indique la durée du film. `audioDuration` conserve celle du morceau seul, disponible en MP3 sans JavaScript.
 
@@ -72,6 +73,6 @@ Cette concession ne couvre pas le roman de George Orwell, les contenus et droits
 
 ## Vérifications
 
-`npm test` vérifie la complétude des traductions, la résolution des ressources sous un sous-répertoire, la sélection de langue, les liens YouTube admis et l’affichage des durées. Le lecteur et les mises en page ordinateur/mobile sont également à vérifier dans le navigateur lors de changements visuels.
+`npm test` vérifie la complétude des traductions, la résolution des ressources sous un sous-répertoire, la sélection de langue, les liens YouTube admis, l’affichage des durées, la cohérence des minutages VTT et les états des paroles. Le lecteur et les mises en page ordinateur/mobile sont également à vérifier dans le navigateur lors de changements visuels.
 
 Publication GitHub Pages suivant la [documentation officielle](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).

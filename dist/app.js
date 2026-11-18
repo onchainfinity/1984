@@ -1,5 +1,6 @@
 import { siteConfig } from "./site.config.js?v=20261117-disc";
 import { selectLocale, youtubeId } from "./lib.js";
+import { connectDiscLyrics } from "./lyrics.js?v=20261118-lyrics";
 
 const $ = selector => document.querySelector(selector);
 const audio = $("#audio");
@@ -78,6 +79,13 @@ function showAudioError() {
 function setupPlayer() {
   audio.controls = false;
   discButton.hidden = false;
+  const loadLyrics = connectDiscLyrics({
+    video: audio,
+    trackElement: $("#lyrics-track"),
+    container: $("#disc-lyrics"),
+    text: $("#disc-lyric-text"),
+    accessibleText: $("#disc-lyric-accessible"),
+  });
   const togglePlayback = async () => {
     discError.hidden = true;
     if (!audio.paused) { audio.pause(); return; }
@@ -86,6 +94,7 @@ function setupPlayer() {
     try {
       // Keep the media URL inactive until the first explicit play request.
       if (!audio.hasAttribute("src")) audio.src = audio.dataset.src;
+      loadLyrics();
       await audio.play();
     } catch (error) { if (error.name !== "AbortError") showAudioError(); }
   };

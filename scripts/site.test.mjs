@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import { selectLocale, youtubeId, formatTime } from "../dist/lib.js";
 import { siteConfig } from "../dist/site.config.js";
+import { connectDiscLyrics } from "../dist/lyrics.js";
 
 const root = new URL("../dist/", import.meta.url);
 const read = async file => readFile(new URL(file, root), "utf8");
@@ -43,4 +44,79 @@ test("Audio time formats include complete 5:33 single and finite fallbacks", () 
   assert.equal(formatTime(siteConfig.audioDuration), "5:33");
   assert.equal(formatTime(0), "0:00");
   assert.equal(formatTime(NaN), "0:00");
+});
+
+test("English lyrics have 28 ordered, nonoverlapping phrases within the final video", async () => {
+  const vtt = await read("assets/golden-country-en.vtt");
+  assert.ok(vtt.startsWith("WEBVTT\n"));
+  const blocks = vtt.trim().split(/\n\n+/).slice(1);
+  assert.equal(blocks.length, 28);
+  const seconds = value => value.split(":").reduce((total, part) => total * 60 + Number(part), 0);
+  let previousEnd = 0;
+  for (const block of blocks) {
+    const [id, timing, ...lines] = block.split("\n");
+    const [start, end] = timing.split(" --> ").map(seconds);
+    assert.ok(Number.isFinite(start) && start >= previousEnd && end > start, `Cue ${id}`);
+    assert.ok(end < siteConfig.videoDuration, `Cue ${id} exceeds video duration`);
+    assert.ok(lines.join(" ").trim());
+    previousEnd = end;
+  }
+  assert.ok(blocks[0].includes("00:00:39.928"));
+  assert.ok(blocks[27].includes("00:04:51.779"));
+});
+
+test("CD lyrics load only on request and follow native cue, gap, seek, end and error events", () => {
+  const video = Object.assign(new EventTarget(), { ended: false, error: null, currentTime: 40 });
+  const track = Object.assign(new EventTarget(), { mode: "disabled", activeCues: [] });
+  const trackElement = Object.assign(new EventTarget(), {
+    track, dataset: { src: "./assets/golden-country-en.vtt" },
+    hasAttribute(name) { return Object.hasOwn(this, name); },
+  });
+  const container = { hidden: true }, text = { textContent: "" }, accessibleText = { textContent: "" };
+  const load = connectDiscLyrics({ video, trackElement, container, text, accessibleText });
+  assert.equal(trackElement.src, undefined);
+  assert.equal(track.mode, "disabled");
+  load();
+  assert.equal(trackElement.src, "./assets/golden-country-en.vtt");
+  assert.equal(track.mode, "hidden");
+  track.activeCues = [{ startTime: 39.928, endTime: 43.356, text: "I bring blue flowers through the shade." }];
+  track.dispatchEvent(new Event("cuechange"));
+  assert.equal(container.hidden, false);
+  assert.equal(text.textContent, track.activeCues[0].text);
+  assert.equal(accessibleText.textContent, text.textContent);
+  video.dispatchEvent(new Event("pause"));
+  assert.equal(container.hidden, false);
+  video.currentTime = 43.356;
+  video.dispatchEvent(new Event("timeupdate"));
+  assert.equal(container.hidden, true, "The exact end is excluded even if native activeCues still includes it");
+  track.activeCues = [];
+  video.dispatchEvent(new Event("seeked"));
+  assert.equal(container.hidden, true);
+  assert.equal(text.textContent, "");
+  video.currentTime = 274.5;
+  track.activeCues = [{ startTime: 274.081, endTime: 277.580, text: "The shade returns. Your breathing slows." }];
+  video.dispatchEvent(new Event("seeked"));
+  assert.equal(text.textContent, track.activeCues[0].text);
+  video.ended = true;
+  video.dispatchEvent(new Event("ended"));
+  assert.equal(container.hidden, true);
+  video.ended = false;
+  video.dispatchEvent(new Event("timeupdate"));
+  assert.equal(container.hidden, false);
+  video.error = { code: 3 };
+  video.dispatchEvent(new Event("error"));
+  assert.equal(container.hidden, true);
+});
+
+test("Adjacent native cues never combine two lyric lines at the shared boundary", () => {
+  const video = Object.assign(new EventTarget(), { currentTime: 119.24 });
+  const track = Object.assign(new EventTarget(), { activeCues: [
+    { startTime: 115.34, endTime: 119.24, text: "For once the world is here with me." },
+    { startTime: 119.24, endTime: 124.48, text: "For once I feel where I can be." },
+  ] });
+  const trackElement = Object.assign(new EventTarget(), { track });
+  const container = { hidden: true }, text = {}, accessibleText = {};
+  connectDiscLyrics({ video, trackElement, container, text, accessibleText });
+  track.dispatchEvent(new Event("cuechange"));
+  assert.equal(text.textContent, "For once I feel where I can be.");
 });

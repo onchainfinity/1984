@@ -19,6 +19,11 @@
 .disc-grooves { position: absolute; inset: 1%; border-radius: 50%; pointer-events: none; box-shadow: inset 0 0 0 1px #fff5, inset 0 0 0 4px #203b302e, inset 0 0 0 5px #f0efe830, inset 0 0 0 12px #141b130f; }
 .disc-lettering { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; fill: #203029; }
 .disc-lettering text { font-family: var(--sans); font-size: 8px; font-weight: 600; letter-spacing: 3px; }
+/* This layer belongs to the stage, not the rotor: lyrics never turn. */
+.disc-lyrics { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.disc-lyrics svg { width: 100%; height: 100%; overflow: visible; }
+.lyric-silver { fill: none; stroke: url(#lyric-silver); stroke-width: 23; }
+.lyric-text { font-family: var(--sans); font-size: 17px; font-weight: 500; letter-spacing: .1px; fill: #17251d; }
 .disc-center-ring {
   position: absolute; width: 24%; aspect-ratio: 1; border-radius: 50%; top: 38%; left: 38%; pointer-events: none;
   background: conic-gradient(#c8d2c15c, #edf1e6ab, #5e736e7a, #ded8c47d, #afc3bb73, #c8d2c15c);
