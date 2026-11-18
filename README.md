@@ -1,6 +1,6 @@
 # 1984 — Velvet Index
 
-Site de présentation de l’album **1984**, centré pour le moment sur le single **Golden Country**. Création **by Onchainfinity**.
+Site de présentation de l’album **1984**, centré pour le moment sur le single **Golden Country**. Création **by Onchainfinity**. La navigation porte le titre de l’album ; la section « Le groupe » présente Velvet Index comme un groupe imaginaire conçu avec l’IA et expose la démarche artistique d’Onchainfinity, en français et en anglais.
 
 Le site utilise les pochettes validées de l’album et du single et annonce la sortie prochaine de l’album. Golden Country se lit dans un CD animé : le film apparaît dans sa surface circulaire et tourne pendant la lecture. Un lien direct ouvre le [clip complet](https://youtu.be/w_qzkKN237k) en 9:16 sur YouTube.
 

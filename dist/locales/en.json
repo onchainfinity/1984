@@ -31,5 +31,14 @@
   "closing.back": "Back to top",
   "footer.note": "A musical work inspired by George Orwell’s 1984.",
   "creator.tagline": "Exploring our traces in AI. Revealing humanity.",
-  "disc.error": "Playback could not start. Please try again in a moment."
+  "disc.error": "Playback could not start. Please try again in a moment.",
+  "nav.album": "1984 — the album",
+  "nav.band": "The band",
+  "band.label": "The band",
+  "band.intro": "Velvet Index is an imagined band created with artificial intelligence, under Onchainfinity’s artistic direction.",
+  "band.description": "Its voices, music and visual world take shape through generative tools. Blending modern new wave and electronic post-punk, the bass drives the movement while the voices explore the characters’ inner lives.",
+  "process.label": "The artistic approach",
+  "process.title": "A continent to explore.",
+  "process.description": "Onchainfinity approaches language models as a continent to explore: a landscape shaped by traces of our stories, knowledge and imagination. Creating means seeking human resonance within that landscape, then selecting, reshaping and connecting the forms that emerge.",
+  "process.album": "With 1984, this exploration follows Orwell’s characters through their fears, desires and gestures of tenderness."
 }

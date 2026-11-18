@@ -19,14 +19,16 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css?v=20261118-disc-only">
   <link rel="stylesheet" href="./disc.css?v=20261118-disc-only">
+  <link rel="stylesheet" href="./band.css?v=20261118-band">
   <script type="module" src="./app.js?v=20261118-disc-only"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
   <header class="header">
-    <a class="wordmark" href="#album" aria-label="Velvet Index — 1984">Velvet Index<span class="wordmark-dot" aria-hidden="true">.</span></a>
+    <a class="wordmark" href="#album" aria-label="1984 — l’album" data-i18n-aria="nav.album">1984<span class="wordmark-dot" aria-hidden="true">.</span></a>
     <nav aria-label="Navigation principale" data-i18n-aria="nav.label">
       <a href="#single" data-i18n="nav.single">Le single</a>
+      <a href="#velvet-index" data-i18n="nav.band">Le groupe</a>
       <div class="language-switch" role="group" aria-label="Choisir la langue" data-i18n-aria="nav.language" hidden>
         <button type="button" data-lang="fr" aria-pressed="true" lang="fr">FR</button>
         <span aria-hidden="true">/</span>
@@ -87,6 +89,21 @@
           <p id="video-pending" class="video-description" data-i18n="video.pendingDescription" hidden>Le lien vers le clip sera disponible dès sa publication.</p>
           <div id="video-available"><a id="youtube-link" class="text-link" href="https://www.youtube.com/watch?v=w_qzkKN237k" target="_blank" rel="noopener noreferrer"><span data-i18n="video.external">Voir le clip sur YouTube</span><span aria-hidden="true">↗</span></a></div>
         </div>
+      </div>
+    </section>
+
+    <section class="band" id="velvet-index" aria-labelledby="band-title">
+      <div class="band-identity">
+        <p class="eyebrow"><span class="section-number" aria-hidden="true">02 /</span> <span data-i18n="band.label">Le groupe</span></p>
+        <h2 id="band-title">Velvet Index</h2>
+        <p class="band-intro" data-i18n="band.intro">Velvet Index est un groupe imaginaire conçu avec l’intelligence artificielle, sous la direction artistique d’Onchainfinity.</p>
+        <p class="body-copy" data-i18n="band.description">Ses voix, sa musique et son univers visuel prennent forme avec des outils génératifs. Entre new wave moderne et post-punk électronique, la basse porte le mouvement et les voix s’attachent aux vies intérieures des personnages.</p>
+      </div>
+      <div class="band-process">
+        <p class="eyebrow" data-i18n="process.label">La démarche artistique</p>
+        <h3 data-i18n="process.title">Un continent à explorer.</h3>
+        <p class="body-copy" data-i18n="process.description">Onchainfinity aborde les modèles de langage comme un continent à explorer : celui des traces laissées par nos récits, nos savoirs et nos imaginaires. La création consiste à y chercher des résonances humaines, puis à choisir, retravailler et relier les formes qui émergent.</p>
+        <p class="body-copy" data-i18n="process.album">Avec 1984, cette recherche suit les personnages d’Orwell dans leurs peurs, leurs désirs et leurs gestes de tendresse.</p>
       </div>
     </section>
 
