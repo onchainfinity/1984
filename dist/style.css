@@ -13,6 +13,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Creative works are licensed separately from the website software. */
+.creator-home { display: inline-flex; align-items: baseline; gap: 6px; padding-block: 4px; margin-block: -4px; text-decoration: underline; text-decoration-color: #b7b8a060; text-underline-offset: 4px; }
+.creator-home:hover, .creator-home:focus-visible { color: var(--paper); text-decoration-color: var(--red); }
 footer { flex-wrap: wrap; }
 .footer-license {
   flex-basis: 100%;
